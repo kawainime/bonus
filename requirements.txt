@@ -1,4 +1,5 @@
+requests
 httpx
 Pillow
-requests
 cloudscraper
+colorama
