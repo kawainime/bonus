@@ -1,359 +1,260 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-
+<!DOCTYPE html>
+<html lang="id">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>SheerID Verification · Documentation</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RootSec Bot | SheerID Verification Tools Tutorial</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --text-main: #c9d1d9;
+            --accent-green: #2ea043;
+            --accent-cyan: #58a6ff;
+            --accent-red: #da3633;
+            --border-color: #30363d;
+            --code-bg: #0d1117;
+        }
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
-    rel="stylesheet">
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-  <style>
-    :root {
-      --bg-dark: #050505;
-      --glass-bg: rgba(20, 20, 20, 0.6);
-      --glass-border: rgba(255, 255, 255, 0.08);
-      --primary: #3b82f6;
-      --accent: #8b5cf6;
-      --text-main: #ffffff;
-      --text-muted: #888888;
-      --font-sans: 'Inter', sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
-    }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 20px;
+        }
 
-    * {
-      box-sizing: border-box;
-    }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
 
-    html,
-    body {
-      min-height: 100%;
-      margin: 0;
-      overflow-x: hidden;
-    }
+        /* Header / Banner */
+        header {
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 40px;
+        }
 
-    body {
-      font-family: var(--font-sans);
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      padding: 40px 0;
-      background-image: radial-gradient(circle at 50% 0%, #1a1a1a, #050505);
-    }
+        h1 {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 2.5rem;
+            color: var(--accent-green);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
 
-    .glow-orb {
-      position: fixed;
-      width: 600px;
-      height: 600px;
-      border-radius: 50%;
-      filter: blur(100px);
-      opacity: 0.15;
-      z-index: -1;
-    }
+        .subtitle {
+            color: var(--accent-cyan);
+            font-size: 1.1rem;
+        }
 
-    .orb-1 {
-      top: -200px;
-      left: -100px;
-      background: var(--primary);
-    }
+        /* Sections */
+        section {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
 
-    .orb-2 {
-      bottom: -200px;
-      right: -100px;
-      background: var(--accent);
-    }
+        h2 {
+            color: #fff;
+            border-bottom: 2px solid var(--accent-green);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            display: inline-block;
+        }
 
-    .container {
-      width: 100%;
-      max-width: 720px;
-      padding: 24px;
-      z-index: 1;
-    }
+        h3 {
+            color: var(--accent-cyan);
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
 
-    .glass-card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(40px);
-      border: 1px solid var(--glass-border);
-      border-radius: 24px;
-      padding: 48px;
-      box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
-    }
+        p, li {
+            margin-bottom: 10px;
+        }
 
-    h2 {
-      margin: 0 0 32px 0;
-      font-size: 20px;
-      font-weight: 600;
-      font-family: var(--font-mono);
-      color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 20px;
+        }
 
-    h2::before {
-      content: '';
-      display: block;
-      width: 20px;
-      height: 20px;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      border-radius: 6px;
-    }
+        /* Code Blocks */
+        pre {
+            background-color: #000;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 15px;
+            overflow-x: auto;
+            margin-bottom: 20px;
+        }
 
-    .section-title {
-      font-family: var(--font-mono);
-      font-size: 12px;
-      color: var(--text-muted);
-      margin: 32px 0 16px 0;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
+        code {
+            font-family: 'Consolas', 'Monaco', monospace;
+            color: var(--accent-green);
+        }
+        
+        .cmd { color: #fff; }
+        .comment { color: #8b949e; }
 
-    .section-title:first-of-type {
-      margin-top: 0;
-    }
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
 
-    .docs-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-      gap: 8px;
-    }
+        .tool-card {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            border-radius: 6px;
+            transition: transform 0.2s;
+        }
 
-    .doc-link {
-      padding: 10px 12px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--glass-border);
-      border-radius: 8px;
-      color: #fff;
-      text-decoration: none;
-      font-size: 13px;
-      text-align: center;
-      transition: all 0.2s;
-    }
+        .tool-card:hover {
+            border-color: var(--accent-cyan);
+            transform: translateY(-2px);
+        }
 
-    .doc-link:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.2);
-      transform: translateY(-2px);
-    }
+        .tool-title {
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 5px;
+            display: block;
+        }
 
-    .method-cards {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
+        .badge {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        .badge-req { background-color: var(--accent-red); color: white; }
+        .badge-easy { background-color: var(--accent-green); color: black; }
 
-    .method-card {
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid var(--glass-border);
-      border-radius: 16px;
-      padding: 20px;
-      text-decoration: none;
-      transition: all 0.3s;
-      position: relative;
-    }
-
-    .method-card:hover {
-      background: rgba(255, 255, 255, 0.05);
-      border-color: rgba(255, 255, 255, 0.15);
-      transform: translateY(-4px);
-    }
-
-    .method-icon {
-      font-size: 24px;
-      margin-bottom: 12px;
-    }
-
-    .method-name {
-      font-weight: 600;
-      font-size: 14px;
-      color: #fff;
-      margin-bottom: 4px;
-    }
-
-    .method-desc {
-      font-size: 12px;
-      color: var(--text-muted);
-      line-height: 1.4;
-    }
-
-    .method-tag {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      font-size: 10px;
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-family: var(--font-mono);
-      text-transform: uppercase;
-    }
-
-    .tag-bot {
-      background: rgba(236, 72, 153, 0.2);
-      color: #ec4899;
-    }
-
-    .tag-web {
-      background: rgba(59, 130, 246, 0.2);
-      color: #3b82f6;
-    }
-
-    .tag-tool {
-      background: rgba(74, 222, 128, 0.2);
-      color: #4ade80;
-    }
-
-    .footer {
-      margin-top: 32px;
-      text-align: center;
-      font-size: 12px;
-      color: #444;
-      font-family: var(--font-mono);
-    }
-
-    .footer a {
-      color: #666;
-      text-decoration: none;
-      margin: 0 16px;
-    }
-
-    .footer a:hover {
-      color: #fff;
-    }
-
-    @media (max-width: 600px) {
-      .container {
-        padding: 16px;
-      }
-
-      .glass-card {
-        padding: 24px;
-      }
-
-      .method-cards {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #8b949e;
+            font-size: 0.9rem;
+        }
+    </style>
 </head>
-
 <body>
-  <div class="glow-orb orb-1"></div>
-  <div class="glow-orb orb-2"></div>
 
-  <div class="container">
-    <div class="glass-card">
-      <h2>SHEERID VERIFICATION</h2>
+<div class="container">
+    <header>
+        <h1>RootSec Bot</h1>
+        <p class="subtitle">All-in-One SheerID Verification Automation Tools</p>
+        <p style="margin-top: 10px; font-size: 0.9rem; color: #8b949e;">Based on ThanhNguyxn Scripts | Modded for Ease of Use</p>
+    </header>
 
-      <!-- Documentation Links -->
-      <div class="section-title">📖 Documentation</div>
-      <div class="docs-grid">
-        <a href="https://github.com/ThanhNguyxn/SheerID-Verification-Tool/blob/master/README.md" target="_blank"
-          class="doc-link">🇺🇸 EN</a>
-        <a href="https://github.com/ThanhNguyxn/SheerID-Verification-Tool/blob/master/docs/README.vi.md" target="_blank"
-          class="doc-link">🇻🇳 VI</a>
-        <a href="https://github.com/ThanhNguyxn/SheerID-Verification-Tool/blob/master/docs/README.zh.md" target="_blank"
-          class="doc-link">🇨🇳 中文</a>
-        <a href="https://github.com/ThanhNguyxn/SheerID-Verification-Tool/blob/master/docs/README.ja.md" target="_blank"
-          class="doc-link">🇯🇵 日本語</a>
-        <a href="https://github.com/ThanhNguyxn/SheerID-Verification-Tool/blob/master/docs/README.ko.md" target="_blank"
-          class="doc-link">🇰🇷 한국어</a>
-        <a href="https://github.com/ThanhNguyxn/SheerID-Verification-Tool/blob/master/docs/README.es.md" target="_blank"
-          class="doc-link">🇪🇸 ES</a>
-        <a href="https://github.com/ThanhNguyxn/SheerID-Verification-Tool/blob/master/docs/README.fr.md" target="_blank"
-          class="doc-link">🇫🇷 FR</a>
-        <a href="https://github.com/ThanhNguyxn/SheerID-Verification-Tool/blob/master/docs/README.de.md" target="_blank"
-          class="doc-link">🇩🇪 DE</a>
-        <a href="https://github.com/ThanhNguyxn/SheerID-Verification-Tool/blob/master/docs/README.ru.md" target="_blank"
-          class="doc-link">🇷🇺 RU</a>
-        <a href="https://github.com/ThanhNguyxn/SheerID-Verification-Tool/blob/master/docs/README.pt-BR.md"
-          target="_blank" class="doc-link">🇧🇷 PT</a>
-        <a href="https://github.com/ThanhNguyxn/SheerID-Verification-Tool/blob/master/docs/README.it.md" target="_blank"
-          class="doc-link">🇮🇹 IT</a>
-        <a href="https://github.com/ThanhNguyxn/SheerID-Verification-Tool/blob/master/docs/README.tr.md" target="_blank"
-          class="doc-link">🇹🇷 TR</a>
-        <a href="https://github.com/ThanhNguyxn/SheerID-Verification-Tool/blob/master/docs/README.pl.md" target="_blank"
-          class="doc-link">🇵🇱 PL</a>
-        <a href="https://github.com/ThanhNguyxn/SheerID-Verification-Tool/blob/master/docs/README.id.md" target="_blank"
-          class="doc-link">🇮🇩 ID</a>
-        <a href="https://github.com/ThanhNguyxn/SheerID-Verification-Tool/blob/master/docs/README.th.md" target="_blank"
-          class="doc-link">🇹🇭 TH</a>
-        <a href="https://github.com/ThanhNguyxn/SheerID-Verification-Tool/blob/master/docs/README.hi.md" target="_blank"
-          class="doc-link">🇮🇳 HI</a>
-        <a href="https://github.com/ThanhNguyxn/SheerID-Verification-Tool/blob/master/docs/README.ar.md" target="_blank"
-          class="doc-link">🇸🇦 AR</a>
-      </div>
+    <section id="setup">
+        <h2>1. Persiapan Awal (Setup)</h2>
+        <p>Sebelum menjalankan tools, pastikan sistem Anda sudah memiliki:</p>
+        <ul>
+            <li><strong>Python 3.10+</strong> terinstall di komputer.</li>
+            <li>Koneksi internet yang stabil (disarankan menggunakan Proxy/VPN jika IP terkena limit).</li>
+        </ul>
 
-      <!-- Tool Documentation Links -->
-      <div class="section-title">🛠️ Tool Guides</div>
-      <div class="docs-grid">
-        <a href="https://github.com/ThanhNguyxn/SheerID-Verification-Tool/blob/master/spotify-verify-tool/README.md"
-          target="_blank" class="doc-link">🎵 Spotify</a>
-        <a href="https://github.com/ThanhNguyxn/SheerID-Verification-Tool/blob/master/youtube-verify-tool/README.md"
-          target="_blank" class="doc-link">🎬 YouTube</a>
-        <a href="https://github.com/ThanhNguyxn/SheerID-Verification-Tool/blob/master/one-verify-tool/README.md"
-          target="_blank" class="doc-link">🤖 Gemini</a>
-        <a href="https://github.com/ThanhNguyxn/SheerID-Verification-Tool/blob/master/boltnew-verify-tool/README.md"
-          target="_blank" class="doc-link">⚡ Bolt.new</a>
-        <a href="https://github.com/ThanhNguyxn/SheerID-Verification-Tool/blob/master/k12-verify-tool/README.md"
-          target="_blank" class="doc-link">🏫 K12</a>
-        <a href="https://github.com/ThanhNguyxn/SheerID-Verification-Tool/blob/master/veterans-verify-tool/README.md"
-          target="_blank" class="doc-link">🎖️ Veterans</a>
-      </div>
+        <h3>Instalasi Library</h3>
+        <p>Buka terminal/CMD di folder utama script ini, lalu jalankan perintah berikut untuk menginstall semua kebutuhan:</p>
+        <pre><code><span class="cmd">pip install -r requirements.txt</span></code></pre>
+        <p><small class="comment">*Pastikan file requirements.txt sudah berisi: requests, httpx, Pillow, cloudscraper, colorama.</small></p>
+    </section>
 
-      <!-- Other Methods -->
-      <div class="section-title">🔗 Other Methods</div>
-      <div class="method-cards">
-        <a href="https://t.me/SheerID_VIP_Bot?start=ref_REF001124" target="_blank" class="method-card">
-          <div class="method-icon">⚡</div>
-          <div class="method-name">SheerID VIP Bot</div>
-          <div class="method-desc">Alternative bot with faster processing</div>
-          <span class="method-tag tag-bot">BOT</span>
-        </a>
-        <a href="https://t.me/sheeridvn_bot?start=invite_7762497789" target="_blank" class="method-card">
-          <div class="method-icon">🇻🇳</div>
-          <div class="method-name">SheerID VN Bot</div>
-          <div class="method-desc">Vietnamese community Telegram bot</div>
-          <span class="method-tag tag-bot">BOT</span>
-        </a>
-        <a href="https://t.me/vgptplusbot?start=ref_7762497789" target="_blank" class="method-card">
-          <div class="method-icon">🎖️</div>
-          <div class="method-name">Veterans Verify Bot</div>
-          <div class="method-desc">Military & Veterans verification bot</div>
-          <span class="method-tag tag-bot">BOT</span>
-        </a>
-        <a href="https://batch.1key.me/" target="_blank" class="method-card">
-          <div class="method-icon">📦</div>
-          <div class="method-name">Batch 1Key.me</div>
-          <div class="method-desc">Batch verification for multiple URLs</div>
-          <span class="method-tag tag-web">WEB</span>
-        </a>
-        <a href="https://thanhnguyxn.github.io/student-card-generator/" target="_blank" class="method-card">
-          <div class="method-icon">🎓</div>
-          <div class="method-name">Student Card Generator</div>
-          <div class="method-desc">Create student card for manual verification</div>
-          <span class="method-tag tag-tool">TOOL</span>
-        </a>
-        <a href="https://thanhnguyxn.github.io/payslip-generator/" target="_blank" class="method-card">
-          <div class="method-icon">💰</div>
-          <div class="method-name">Payslip Generator</div>
-          <div class="method-desc">Generate payslip documents</div>
-          <span class="method-tag tag-tool">TOOL</span>
-        </a>
-      </div>
+    <section id="usage">
+        <h2>2. Cara Menjalankan (Main Launcher)</h2>
+        <p>Kami telah menyediakan launcher terpusat agar Anda tidak perlu membuka folder satu per satu. Jalankan script utama:</p>
+        <pre><code><span class="cmd">python main.py</span></code></pre>
+        
+        <p>Anda akan melihat tampilan menu berwarna-warni "RootSec Bot". Cukup ketik angka menu yang diinginkan dan tekan <strong>Enter</strong>.</p>
+        
+        <div class="tools-grid">
+            <div class="tool-card">
+                <span class="tool-title">[1] Spotify Student</span>
+                <p>Generate bukti mahasiswa & verifikasi otomatis.</p>
+            </div>
+            <div class="tool-card">
+                <span class="tool-title">[2] Veterans / Military</span>
+                <p>Verifikasi status militer (Butuh Config).</p>
+                <span class="badge badge-req">Butuh Config</span>
+            </div>
+            <div class="tool-card">
+                <span class="tool-title">[3] YouTube Student</span>
+                <p>Khusus verifikasi YouTube Premium Student.</p>
+            </div>
+            <div class="tool-card">
+                <span class="tool-title">[4] Perplexity</span>
+                <p>Bypass verifikasi Perplexity AI.</p>
+            </div>
+            <div class="tool-card">
+                <span class="tool-title">[5] K12 Teacher/Student</span>
+                <p>Verifikasi untuk diskon edukasi K12.</p>
+            </div>
+            <div class="tool-card">
+                <span class="tool-title">[6] One Verify</span>
+                <p>Multi-purpose verification tool.</p>
+            </div>
+            <div class="tool-card">
+                <span class="tool-title">[7] Bolt.new</span>
+                <p>Tool khusus platform Bolt.new.</p>
+            </div>
+        </div>
+    </section>
 
-      <div class="footer">
-        <a href="https://github.com/ThanhNguyxn/SheerID-Verification-Tool" target="_blank">GITHUB</a>
-        <a href="https://buymeacoffee.com/thanhnguyxn" target="_blank">DONATE</a>
-        <a href="https://github.com/sponsors/ThanhNguyxn" target="_blank">SUPPORT</a>
-      </div>
-    </div>
-  </div>
+    <section id="config">
+        <h2>3. Konfigurasi Khusus (PENTING)</h2>
+        <p>Beberapa tool memerlukan setting tambahan agar bisa berjalan, terutama <strong>Veterans Tool</strong>.</p>
+
+        <h3>Setting Veterans Tool (Menu 2)</h3>
+        <p>Tool ini menggunakan API ChatGPT untuk verifikasi. Anda wajib mengedit file konfigurasi:</p>
+        <ol>
+            <li>Masuk ke folder <code>veterans-verify-tool</code>.</li>
+            <li>Rename <code>config.example.json</code> menjadi <code>config.json</code>.</li>
+            <li>Buka <code>config.json</code> dengan Notepad/VSCode dan isi:</li>
+        </ol>
+        <pre><code>{
+  "accessToken": "EYJhbGciOi...", <span class="comment">// Ambil dari https://chatgpt.com/api/auth/session</span>
+  "programId": "690415d58971e73ca187d8c9",
+  "email": {
+    "email_address": "emailmu@gmail.com",
+    "email_password": "app_password_disini", <span class="comment">// Gunakan App Password jika Gmail</span>
+    "imap_server": "imap.gmail.com"
+  }
+}</code></pre>
+        <p>Selain itu, isi data target di file <code>data.txt</code> (copy dari <code>data.example.txt</code>) dengan format:</p>
+        <pre><code>NamaDepan|NamaBelakang|Branch|TanggalLahir|TanggalDischarge</code></pre>
+    </section>
+
+    <section id="troubleshoot">
+        <h2>4. Troubleshooting & Tips</h2>
+        <ul>
+            <li><strong>Missing Module Error:</strong> Jika muncul error <code>ModuleNotFoundError</code>, pastikan Anda sudah menjalankan <code>pip install -r requirements.txt</code>.</li>
+            <li><strong>IP Limit / Block:</strong> Jika verifikasi gagal terus menerus, gunakan Proxy. Buat file <code>proxy.txt</code> di dalam folder tool terkait (format: <code>user:pass@host:port</code>).</li>
+            <li><strong>Google Chrome Error:</strong> Untuk tool yang menggunakan browser otomatis, pastikan Google Chrome terinstall di PC Anda.</li>
+        </ul>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 RootSec Bot. For Educational Purposes Only.</p>
+        <p>Original Scripts by ThanhNguyxn.</p>
+    </footer>
+</div>
+
 </body>
-
 </html>
