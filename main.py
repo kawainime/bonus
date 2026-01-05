@@ -62,7 +62,7 @@ def print_rainbow_banner():
         # Rotasi warna untuk setiap baris
         color = colors[i % len(colors)]
         print(center_text(f"{Style.BRIGHT}{color}{line}"))
-    print(center_text(f"{Fore.WHITE}Created by ThanhNguyxn | Modded by RootSec"))
+    print(center_text(f"{Fore.WHITE}Developer By Toko RootSec Bot"))
     # PERBAIKAN DI SINI: Menggunakan LIGHTBLACK_EX
     print("\n" + center_text(f"{Fore.LIGHTBLACK_EX}{'='*60}"))
     print("")
