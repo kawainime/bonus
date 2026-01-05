@@ -13,8 +13,11 @@ try:
 except ImportError:
     HAS_COLOR = False
     # Definisi class dummy jika colorama tidak terinstall
-    class Fore: RED = GREEN = YELLOW = BLUE = MAGENTA = CYAN = WHITE = RESET = ""
-    class Style: BRIGHT = DIM = RESET_ALL = ""
+    class Fore: 
+        RED = GREEN = YELLOW = BLUE = MAGENTA = CYAN = WHITE = RESET = ""
+        LIGHTBLACK_EX = "" # Fallback untuk warna abu-abu
+    class Style: 
+        BRIGHT = DIM = RESET_ALL = ""
 
 # Konfigurasi Tool dan Folder
 # Format: "Nama Tampilan": "Nama Folder"
@@ -39,7 +42,7 @@ def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def print_rainbow_banner():
-    """Menampilkan Banner RootSec Bot"""
+    """Menampilkan Banner RootSec Bot berwarna-warni"""
     
     # ASCII Art untuk "RootSec Bot"
     banner_art = [
@@ -59,8 +62,9 @@ def print_rainbow_banner():
         # Rotasi warna untuk setiap baris
         color = colors[i % len(colors)]
         print(center_text(f"{Style.BRIGHT}{color}{line}"))
-    print(center_text(f"{Fore.WHITE}Created by RootSec"))
-    print("\n" + center_text(f"{Fore.DARKGRAY}{'='*60}"))
+    print(center_text(f"{Fore.WHITE}Created by ThanhNguyxn | Modded by RootSec"))
+    # PERBAIKAN DI SINI: Menggunakan LIGHTBLACK_EX
+    print("\n" + center_text(f"{Fore.LIGHTBLACK_EX}{'='*60}"))
     print("")
 
 def run_script(folder_name):
@@ -83,7 +87,7 @@ def run_script(folder_name):
         os.chdir(target_folder)
         clear_screen()
         # Banner kecil saat tool berjalan
-        print(f"{Fore.CYAN}[*] RootSec Bot >> {folder_name} ...{Style.RESET_ALL}\n")
+        print(f"{Fore.CYAN}[*] RootSec Launcher >> {folder_name} ...{Style.RESET_ALL}\n")
         
         subprocess.run([sys.executable, "main.py"])
         
@@ -93,7 +97,8 @@ def run_script(folder_name):
         print(f"\n{Fore.RED}[ERROR] {e}{Style.RESET_ALL}")
     finally:
         os.chdir(original_cwd)
-        print(f"\n{Fore.DARKGRAY}{'-'*50}{Style.RESET_ALL}")
+        # PERBAIKAN DI SINI: Menggunakan LIGHTBLACK_EX
+        print(f"\n{Fore.LIGHTBLACK_EX}{'-'*50}{Style.RESET_ALL}")
         input(center_text("Tekan [ENTER] untuk kembali ke Menu Utama..."))
 
 def main():
@@ -106,14 +111,14 @@ def main():
 
         # Menampilkan menu dengan rapi di tengah
         for key, (name, _) in TOOLS.items():
-            menu_item = f"[{key}] {name}"
             # Kita buat sedikit padding manual agar terlihat seperti list tapi tetap di tengah
             print(center_text(f"{Fore.CYAN}{key.center(3)} {Fore.WHITE}- {name}"))
         
         print("")
         print(center_text(f"{Fore.RED}[0]  KELUAR / EXIT"))
         print("")
-        print(center_text(f"{Fore.DARKGRAY}{'='*60}"))
+        # PERBAIKAN DI SINI: Menggunakan LIGHTBLACK_EX
+        print(center_text(f"{Fore.LIGHTBLACK_EX}{'='*60}"))
         
         # Input prompt
         sys.stdout.write(f"\n{Fore.GREEN}RootSec@Bot ~# {Style.RESET_ALL}")
